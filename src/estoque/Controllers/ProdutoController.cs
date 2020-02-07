@@ -24,17 +24,20 @@ namespace estoque.Controllers {
         [HttpPost]
         public async Task<ActionResult<Produto>> Post([FromBody] ProdutoViewModel produtoViewModel)
         {
-            try
-            {
-                var produto = produtoViewModel.GetProduto();
-                _repositorio.Add(produto);
-                await _uow.Commit();
-                return Ok(produto);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            var produto = produtoViewModel.GetProduto();
+            _repositorio.Add(produto);
+            await _uow.Commit();
+            return Ok(produto);           
+
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Produto>> Put(Guid id, [FromBody] ProdutoViewModel produtoViewModel)
+        {
+            var produto = produtoViewModel.GetProduto();
+            _repositorio.Update(id, produto);
+            await _uow.Commit();
+            return Ok(produto);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace estoque.INTERFACES {
         void Add (TEntity obj);
         Task<TEntity> GetById (Guid id);
         Task<IEnumerable<TEntity>> GetAll ();
-        void Update (TEntity obj);
+        void Update (Guid id, TEntity obj);
         void Remove (Guid id);
     }
 }

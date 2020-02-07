@@ -31,11 +31,11 @@ namespace estoque.INFRA.REPOSITORIO {
             return data.SingleOrDefault ();
         }
 
-        public void Remove (Guid id) {
-            throw new NotImplementedException ();
+        public virtual void Remove (Guid id) {
+            _context.AddCommand(() => DbSet.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", id)));
         }
 
-        public void Update (TEntity obj) {
+        public virtual void Update (Guid id, TEntity obj) {
             _context.AddCommand (() => DbSet.ReplaceOneAsync (Builders<TEntity>.Filter.Eq ("_id", obj.GetId ()), obj));
         }
     }
