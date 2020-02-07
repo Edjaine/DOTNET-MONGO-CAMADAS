@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using estoque.INTERFACES;
+using MongoDB.Driver;
+using ServiceStack;
+
+namespace estoque.INFRA.REPOSITORIO {
+    public abstract class BaseRepositorio<TEntity> : IRepositorio<TEntity> where TEntity : class {
+        private readonly IMongoContext _context;
+        protected IMongoCollection<TEntity> DbSet;
+        public BaseRepositorio (IMongoContext context) {
+            DbSet = context.GetCollection<TEntity>(typeof(TEntity).Name);
+            _context = context;
+        }
+        public virtual void Add (TEntity obj) {
+            _context.AddCommand (() => DbSet.InsertOneAsync (obj));
+        }
+
+        public void Dispose () {
+            _context?.Dispose ();
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> GetAll () {
+            var all = await DbSet.FindAsync (Builders<TEntity>.Filter.Empty);
+            return all.ToList ();
+        }
+
+        public virtual async Task<TEntity> GetById (Guid id) {
+            var data = await DbSet.FindAsync (Builders<TEntity>.Filter.Eq ("_id", id));
+            return data.SingleOrDefault ();
+        }
+
+        public void Remove (Guid id) {
+            throw new NotImplementedException ();
+        }
+
+        public void Update (TEntity obj) {
+            _context.AddCommand (() => DbSet.ReplaceOneAsync (Builders<TEntity>.Filter.Eq ("_id", obj.GetId ()), obj));
+        }
+    }
+}
