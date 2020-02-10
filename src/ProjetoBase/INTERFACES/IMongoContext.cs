@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
-namespace estoque.INTERFACES {
+namespace ProjetoBase.INTERFACES {
     public interface IMongoContext : IDisposable {
         void AddCommand (Func<Task> func);
         Task<int> SaveChanges ();

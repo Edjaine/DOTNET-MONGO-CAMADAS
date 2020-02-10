@@ -1,7 +1,9 @@
-using estoque.DOMINIO;
+using System.Threading.Tasks;
+using ProjetoBase.DOMINIO;
 
-namespace estoque.INTERFACES {
-    public interface IProdutoRepositorio : IRepositorio<Produto> {
+namespace ProjetoBase.INTERFACES {
+    public interface IProdutoRepositorio : IRepositorio<Produto>  {
+        void AddSerial(Serial serial);
 
     }
 }

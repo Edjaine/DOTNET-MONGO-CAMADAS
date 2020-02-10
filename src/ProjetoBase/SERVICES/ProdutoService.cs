@@ -1,24 +1,61 @@
-﻿using estoque.DOMINIO;
-using estoque.INTERFACES;
+﻿using AutoMapper;
+using ProjetoBase.DOMINIO;
+using ProjetoBase.INTERFACES;
+using ProjetoBase.MODEL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace estoque.SERVICES
+namespace ProjetoBase.SERVICES
 {
-    public class ProdutoService: IService
+    public class ProdutoService: IService<ProdutoViewModel>
     {
         private readonly IUnitOfWork _uow;
         private readonly IProdutoRepositorio _repositorio;
-        public ProdutoService(IProdutoRepositorio repositorio, IUnitOfWork uow)
-        {
+        private readonly IMapper _mapper;
+        public ProdutoService(IProdutoRepositorio repositorio, IUnitOfWork uow, IMapper mapper){        
             _uow = uow;
             _repositorio = repositorio;
+            _mapper = mapper;
         }
-        public async Task<Produto> GetById(Guid id)
-        {
-            return await _repositorio.GetById(id);
+        public async Task<ProdutoViewModel> ConsultaPorId(Guid id){        
+            var produto = await _repositorio.GetById(id);
+            return _mapper.Map<ProdutoViewModel>(produto);
         }
+        public async Task<List<ProdutoViewModel>> Consulta(){
+            var produtos = await _repositorio.GetAll();
+            var produtosViewModel = new List<ProdutoViewModel>();
+
+            produtos.ToList().ForEach(p => {
+                produtosViewModel.Add(_mapper.Map<ProdutoViewModel>(p));
+            });
+            return produtosViewModel;
+        }
+        public async Task<ProdutoViewModel> Atualiza(Guid id, ProdutoViewModel produtoViewModel){
+            var produto = _mapper.Map<Produto>(produtoViewModel);
+            _repositorio.Update(id, produto);
+            await _uow.Commit();
+            var produtoPersistido = _repositorio.GetById(id);
+            return _mapper.Map<ProdutoViewModel>(produtoPersistido);
+        }
+        public async Task<ProdutoViewModel> Insere(ProdutoViewModel produtoViewModel){
+            var produto = _mapper.Map<Produto>(produtoViewModel);
+            _repositorio.Add(produto);
+            await _uow.Commit();            
+            var produtoPersistido = _repositorio.GetById(produto.Id);
+            return _mapper.Map<ProdutoViewModel>(produtoPersistido);
+        }
+        public async Task Remove(Guid id){
+            _repositorio.Remove(id);
+            await _uow.Commit();
+        }
+        public async Task<ProdutoViewModel> InsereSeriail(SerialViewModel serialViewModel){
+            var serial = _mapper.Map<Serial>(serialViewModel);
+            _repositorio.AddSerial(serial);
+            await _uow.Commit();
+            var produtoPersistido = _repositorio.GetById(serialViewModel.IdProduto);
+            return _mapper.Map<ProdutoViewModel>(produtoPersistido);
+        } 
     }
 }

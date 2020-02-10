@@ -1,51 +1,47 @@
-using estoque.DOMINIO;
-using estoque.INTERFACES;
-using estoque.Model;
+using ProjetoBase.DOMINIO;
+using ProjetoBase.INTERFACES;
+using ProjetoBase.MODEL;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
 
-namespace estoque.Controllers {
+namespace ProjetoBase.Controllers {
     [Route("[controller]")]
     [ApiController]
     public class ProdutoController : ControllerBase {
-        private readonly IProdutoRepositorio _repositorio;
-        private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;
-        public ProdutoController(IProdutoRepositorio repositorio, IUnitOfWork uow, IMapper mapper) {
-            _repositorio = repositorio;
-            _uow = uow;
-            _mapper = mapper;
+        private readonly IService<ProdutoViewModel> _produtoService;
+
+        public ProdutoController(IService<ProdutoViewModel> produtoService) {
+            _produtoService = produtoService;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProdutoViewModel>> Get(string id){
+            var chave= Guid.Parse(id);
+            var produtos = await _produtoService.ConsultaPorId(chave);
+            return Ok(produtos);
+        }
         [HttpGet]
-        public async Task<ActionResult<Produto>> Get() {
-            var produtos = await _repositorio.GetAll();
+        public async Task<ActionResult<ProdutoViewModel>> Get() {
+            var produtos = await _produtoService.Consulta();
             return Ok(produtos);
         }
         [HttpPost]
-        public async Task<ActionResult<Produto>> Post([FromBody] ProdutoViewModel produtoViewModel)
+        public async Task<ActionResult<ProdutoViewModel>> Post([FromBody] ProdutoViewModel produtoViewModel)
         {
-            var produto = _mapper.Map<Produto>(produtoViewModel);            
-            _repositorio.Add(produto);
-            await _uow.Commit();
+            var produto = await _produtoService.Insere(produtoViewModel);
             return Ok(produto);           
-
         }
-
         [HttpPut]
-        public async Task<ActionResult<Produto>> Put(Guid id, [FromBody] ProdutoViewModel produtoViewModel)
+        public async Task<ActionResult<ProdutoViewModel>> Put(Guid id, [FromBody] ProdutoViewModel produtoViewModel)
         {
-            var produto = _mapper.Map<Produto>(produtoViewModel);
-            _repositorio.Update(id, produto);
-            await _uow.Commit();
+            var produto = await _produtoService.Atualiza(id, produtoViewModel);
             return Ok(produto);
         }
         [HttpDelete]
         public async Task<ActionResult> Delete(Guid id){
-            _repositorio.Remove(id);
-            await _uow.Commit();
+            await _produtoService.Remove(id);
             return Ok();
         }
     }

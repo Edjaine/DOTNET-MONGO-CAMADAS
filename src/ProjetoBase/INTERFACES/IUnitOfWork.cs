@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace estoque.INTERFACES {
+namespace ProjetoBase.INTERFACES {
     public interface IUnitOfWork : IDisposable {
         Task<bool> Commit ();
 

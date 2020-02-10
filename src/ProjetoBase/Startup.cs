@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using estoque.INFRA.CONTEXTO;
-using estoque.INFRA.REPOSITORIO;
-using estoque.INFRA.UoW;
-using estoque.INTERFACES;
-using estoque.INFRA.MAPPER;
+using ProjetoBase.INFRA.CONTEXTO;
+using ProjetoBase.INFRA.REPOSITORIO;
+using ProjetoBase.INFRA.UoW;
+using ProjetoBase.INTERFACES;
+using ProjetoBase.INFRA.MAPPER;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,7 +18,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using AutoMapper;
-
+using ProjetoBase.MODEL;
+using ProjetoBase.SERVICES;
 
 namespace estoque {
     public class Startup {
@@ -33,6 +34,7 @@ namespace estoque {
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio> ();
             services.AddScoped<IUnitOfWork, UnitOfWork> ();
             services.AddScoped<IMongoContext, MongoContext> ();
+            services.AddScoped<IService<ProdutoViewModel>, ProdutoService>();
             services.AddControllers ();
 
             var mappingConfig = new MapperConfiguration(mc => {

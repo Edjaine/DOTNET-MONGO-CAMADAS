@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using estoque.INTERFACES;
+using ProjetoBase.INTERFACES;
 using MongoDB.Driver;
 using ServiceStack;
 
-namespace estoque.INFRA.REPOSITORIO {
-    public abstract class BaseRepositorio<TEntity> : IRepositorio<TEntity> where TEntity : class {
-        private readonly IMongoContext _context;
+namespace ProjetoBase.INFRA.REPOSITORIO {
+    public abstract class BaseRepositorio<TEntity> : IRepositorio<TEntity> where TEntity : IDominio {
+        protected IMongoContext _context;
         protected IMongoCollection<TEntity> DbSet;
         public BaseRepositorio (IMongoContext context) {
             DbSet = context.GetCollection<TEntity>(typeof(TEntity).Name);

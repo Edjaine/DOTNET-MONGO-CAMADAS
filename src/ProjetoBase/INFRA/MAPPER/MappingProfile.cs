@@ -1,16 +1,21 @@
+using System;
 using AutoMapper;
-using estoque.DOMINIO;
-using estoque.Model;
+using ProjetoBase.DOMINIO;
+using ProjetoBase.MODEL;
 
-
-namespace estoque.INFRA.MAPPER
+namespace ProjetoBase.INFRA.MAPPER
 {
     public class MappingProfile: Profile
     {
         public MappingProfile()
         {
             CreateMap<Produto, ProdutoViewModel>();
-            CreateMap<ProdutoViewModel, Produto>();
+            CreateMap<ProdutoViewModel, Produto>()
+                .ForMember(p => p.Id, opt => opt.Ignore());
+
+            CreateMap<Serial, SerialViewModel>();   
+            CreateMap<SerialViewModel, Serial>()
+                .ForMember(s=> s.Id, opt => opt.Ignore());             
         }
     }
 }

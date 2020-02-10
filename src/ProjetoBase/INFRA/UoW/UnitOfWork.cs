@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using estoque.INTERFACES;
+using ProjetoBase.INTERFACES;
 
-namespace estoque.INFRA.UoW {
+namespace ProjetoBase.INFRA.UoW {
     public class UnitOfWork : IUnitOfWork {
         private readonly IMongoContext _context;
         public UnitOfWork (IMongoContext context) {

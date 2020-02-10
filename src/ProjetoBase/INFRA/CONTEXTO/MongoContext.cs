@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using estoque.INTERFACES;
+using ProjetoBase.INTERFACES;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace estoque.INFRA.CONTEXTO {
+namespace ProjetoBase.INFRA.CONTEXTO {
     public class MongoContext : IMongoContext {
         private readonly IConfiguration _configuration;
         private readonly List<Func<Task>> _commands;

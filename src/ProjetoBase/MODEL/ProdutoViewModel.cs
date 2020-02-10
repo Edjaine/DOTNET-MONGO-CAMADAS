@@ -1,13 +1,15 @@
-﻿using estoque.DOMINIO;
+﻿using ProjetoBase.DOMINIO;
+using ProjetoBase.INTERFACES;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace estoque.Model
+namespace ProjetoBase.MODEL
 {
-    public class ProdutoViewModel
+    public class ProdutoViewModel : IViewModel
     {
+        public Guid?  Id { get; set; }
         public string Codigo { get; set; }
         public string Descricao { get; set; }
 
