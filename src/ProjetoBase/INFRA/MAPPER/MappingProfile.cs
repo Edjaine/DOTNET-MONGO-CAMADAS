@@ -13,6 +13,7 @@ namespace ProjetoBase.INFRA.MAPPER
             CreateMap<ProdutoViewModel, Produto>()
                 .ForMember(p => p.Id, opt => opt.Ignore());
 
+
             CreateMap<Serial, SerialViewModel>();   
             CreateMap<SerialViewModel, Serial>()
                 .ForMember(s=> s.Id, opt => opt.Ignore());             

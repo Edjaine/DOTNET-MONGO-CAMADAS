@@ -5,7 +5,7 @@ using ProjetoBase.MODEL;
 
 namespace ProjetoBase.Controllers
 {
-    [Route("controller")]
+    [Route("[controller]")]
     [ApiController]
     public class SeriaisController: ControllerBase
     {

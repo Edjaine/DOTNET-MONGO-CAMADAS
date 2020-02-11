@@ -34,7 +34,7 @@ namespace estoque {
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio> ();
             services.AddScoped<IUnitOfWork, UnitOfWork> ();
             services.AddScoped<IMongoContext, MongoContext> ();
-            services.AddScoped<IService<ProdutoViewModel>, ProdutoService>();
+            services.AddScoped<IProdutoService, ProdutoService>();
             services.AddControllers ();
 
             var mappingConfig = new MapperConfiguration(mc => {

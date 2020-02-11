@@ -10,9 +10,9 @@ namespace ProjetoBase.Controllers {
     [Route("[controller]")]
     [ApiController]
     public class ProdutoController : ControllerBase {
-        private readonly IService<ProdutoViewModel> _produtoService;
+        private readonly IProdutoService _produtoService;
 
-        public ProdutoController(IService<ProdutoViewModel> produtoService) {
+        public ProdutoController(IProdutoService produtoService) {
             _produtoService = produtoService;
         }
 

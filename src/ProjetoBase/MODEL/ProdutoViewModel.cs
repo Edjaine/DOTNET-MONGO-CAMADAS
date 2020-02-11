@@ -12,11 +12,6 @@ namespace ProjetoBase.MODEL
         public Guid?  Id { get; set; }
         public string Codigo { get; set; }
         public string Descricao { get; set; }
-
-
-        public Produto GetProduto()
-        {
-            return new Produto(Codigo, Descricao);
-        } 
+        public IList<SerialViewModel> Seriais {get; set;}
     }
 }

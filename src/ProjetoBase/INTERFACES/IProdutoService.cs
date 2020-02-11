@@ -5,6 +5,7 @@ namespace ProjetoBase.INTERFACES
 {
     public interface IProdutoService : IService<ProdutoViewModel>
     {
-         public Task<ProdutoViewModel> InsereSeriail(SerialViewModel serialViewModel);
+        
+        public Task<ProdutoViewModel> InsereSeriail(SerialViewModel serialViewModel);
     }
 }

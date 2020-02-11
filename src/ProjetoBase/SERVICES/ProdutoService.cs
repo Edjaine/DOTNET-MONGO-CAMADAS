@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoBase.SERVICES
 {
-    public class ProdutoService: IService<ProdutoViewModel>
+    public class ProdutoService: IProdutoService
     {
         private readonly IUnitOfWork _uow;
         private readonly IProdutoRepositorio _repositorio;
@@ -50,11 +50,14 @@ namespace ProjetoBase.SERVICES
             _repositorio.Remove(id);
             await _uow.Commit();
         }
-        public async Task<ProdutoViewModel> InsereSeriail(SerialViewModel serialViewModel){
+        public async Task<ProdutoViewModel> InsereSeriail(SerialViewModel serialViewModel){            
             var serial = _mapper.Map<Serial>(serialViewModel);
             _repositorio.AddSerial(serial);
             await _uow.Commit();
-            var produtoPersistido = _repositorio.GetById(serialViewModel.IdProduto);
+            var produtoPersistido = await _repositorio.GetById(serialViewModel.IdProduto);
+            if(produtoPersistido == null)
+                return new ProdutoViewModel();
+
             return _mapper.Map<ProdutoViewModel>(produtoPersistido);
         } 
     }
