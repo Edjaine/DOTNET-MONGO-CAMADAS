@@ -35,7 +35,7 @@ namespace ProjetoBase.INFRA.REPOSITORIO {
             _context.AddCommand(() => DbSet.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", id)));
         }
 
-        public virtual void Update (Guid id, TEntity obj) {
+        public virtual void Update (Guid id, TEntity obj) {         
             _context.AddCommand (() => DbSet.ReplaceOneAsync (Builders<TEntity>.Filter.Eq ("_id", obj.GetId ()), obj));
         }
     }

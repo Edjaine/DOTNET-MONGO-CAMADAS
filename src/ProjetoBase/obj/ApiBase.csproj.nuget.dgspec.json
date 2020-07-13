@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/edjaine/Documents/FONTES/LAYOUT-CAMADAS/TemplateCamadas/src/ProjetoBase/ApiBase.csproj": {}
+    "/home/edjaine/Documentos/Fontes/POC/DOTNET-MONGO-CAMADAS/src/ProjetoBase/ApiBase.csproj": {}
   },
   "projects": {
-    "/home/edjaine/Documents/FONTES/LAYOUT-CAMADAS/TemplateCamadas/src/ProjetoBase/ApiBase.csproj": {
+    "/home/edjaine/Documentos/Fontes/POC/DOTNET-MONGO-CAMADAS/src/ProjetoBase/ApiBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/edjaine/Documents/FONTES/LAYOUT-CAMADAS/TemplateCamadas/src/ProjetoBase/ApiBase.csproj",
+        "projectUniqueName": "/home/edjaine/Documentos/Fontes/POC/DOTNET-MONGO-CAMADAS/src/ProjetoBase/ApiBase.csproj",
         "projectName": "ApiBase",
-        "projectPath": "/home/edjaine/Documents/FONTES/LAYOUT-CAMADAS/TemplateCamadas/src/ProjetoBase/ApiBase.csproj",
+        "projectPath": "/home/edjaine/Documentos/Fontes/POC/DOTNET-MONGO-CAMADAS/src/ProjetoBase/ApiBase.csproj",
         "packagesPath": "/home/edjaine/.nuget/packages/",
-        "outputPath": "/home/edjaine/Documents/FONTES/LAYOUT-CAMADAS/TemplateCamadas/src/ProjetoBase/obj/",
+        "outputPath": "/home/edjaine/Documentos/Fontes/POC/DOTNET-MONGO-CAMADAS/src/ProjetoBase/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/edjaine/.nuget/NuGet/NuGet.Config"
@@ -83,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.301/RuntimeIdentifierGraph.json"
         }
       }
     }
