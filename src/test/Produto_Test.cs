@@ -9,6 +9,7 @@ using ProjetoBase.DOMINIO;
 using ProjetoBase.INFRA.MAPPER;
 using ProjetoBase.INTERFACES;
 using ProjetoBase.MODEL;
+using ProjetoBase.SERVICES;
 
 namespace test
 {
@@ -16,6 +17,7 @@ namespace test
     {
         private IUnitOfWork _uow;
         private IProdutoRepositorio _repositorio;
+        private ProdutoService _produtoService;
         private IMapper _mapper;
         private IList<Produto> listProdutos = new List<Produto>();
         [SetUp]
@@ -46,6 +48,9 @@ namespace test
             .ReturnsAsync(listProdutos.AsEnumerable<Produto>());
 
             _repositorio = mRepositorio.Object;
+
+            _produtoService = new ProdutoService(_repositorio, _uow, _mapper);
+
         }
 
         [Test]
@@ -73,7 +78,13 @@ namespace test
             Assert.AreEqual(quantidadeLista, produtos.Count());
             Assert.IsNotNull(produtos.FirstOrDefault().Codigo);
 
-        }        
+        } 
+        [Test] 
+       public async Task ConsultaProdutoService() {
+           var produtos = await _produtoService.Consulta();
+           Assert.IsTrue(produtos.ToList().Count > 0);
+
+        }     
         
     }
 }
